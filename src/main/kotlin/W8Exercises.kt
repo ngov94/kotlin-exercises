@@ -36,7 +36,8 @@ fun main(){
 //    println("Number of paths in {{2,3,3}, {3,3,3}, {0,0,1}} is "+ numPathsFromSource(arrayOf(arrayOf(2,3,3), arrayOf(3,3,3), arrayOf(0,0,1))))
 
     //Question 8:
-
+    println(expressionOrder("[()]{}{[()()]()}"))
+    println(expressionOrder("[()]([){[]]}"))
 
 
 
@@ -182,7 +183,26 @@ private fun numOfPath(arr: Array<Array<Int>>, x: Int, y: Int):Int{
 
 }
 
+//Question 8
+fun expressionOrder(exp: String): Boolean{
+    var stack = ArrayDeque<Char>()
 
+    for (x in exp){
+        if (x.equals('{') || x.equals('[')|| x.equals('(')){
+            stack.addLast(x)
+        }else{
+            if(x.equals('}') && stack.last().equals('{'))
+                stack.removeLast()
+            else if(x.equals(']') && stack.last().equals('['))
+                stack.removeLast()
+            else if(x.equals(')') && stack.last().equals('('))
+                stack.removeLast()
+            else return false
+        }
+    }
+
+    return true
+}
 
 
 
